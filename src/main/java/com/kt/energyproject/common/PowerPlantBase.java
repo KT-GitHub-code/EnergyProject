@@ -2,8 +2,12 @@ package com.kt.energyproject.common;
 
 public abstract class PowerPlantBase {
 
-    public abstract String start();
+    public String start(){
+        return "Started";
+    };
 
-    public abstract String stop();
+    public String stop(){
+        return "Stopped";
+    }
 
 }

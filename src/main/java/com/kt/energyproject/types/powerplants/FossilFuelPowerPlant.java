@@ -1,4 +1,6 @@
 package com.kt.energyproject.types.powerplants;
 
-public abstract class FossilFuelPowerPlant {
+import com.kt.energyproject.common.PowerPlantBase;
+
+public abstract class FossilFuelPowerPlant extends PowerPlantBase {
 }

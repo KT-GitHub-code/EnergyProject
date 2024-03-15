@@ -1,4 +1,6 @@
 package com.kt.energyproject.types.powerplants;
 
-public abstract class SolarPowerPlant {
+import com.kt.energyproject.common.PowerPlantBase;
+
+public abstract class SolarPowerPlant extends PowerPlantBase {
 }

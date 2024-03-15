@@ -1,4 +1,6 @@
 package com.kt.energyproject.types.turbines;
 
-public abstract class WindTurbine {
+import com.kt.energyproject.common.TurbineBase;
+
+public abstract class WindTurbine extends TurbineBase {
 }
