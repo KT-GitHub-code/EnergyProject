@@ -29,6 +29,13 @@ public class EnergyProjectApplication {
 
         powerPlant.start();
 
+        try {
+            // Runs for 10 seconds
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         SunIntensity.getInstance().setIntensity(SunIntensityLevel.ZERO);
     }
 
