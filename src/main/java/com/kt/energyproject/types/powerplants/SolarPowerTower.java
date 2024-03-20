@@ -1,5 +1,7 @@
 package com.kt.energyproject.types.powerplants;
 
+import com.kt.energyproject.common.SpinSpeedLevel;
+import com.kt.energyproject.common.SpeedService;
 import com.kt.energyproject.environment.SunIntensity;
 import com.kt.energyproject.environment.SunIntensityLevel;
 import com.kt.energyproject.types.generators.Generator;
@@ -12,20 +14,28 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
 
     private final SteamTurbineFactory turbineFactory;
     private final Generator generator;
+    private final SpeedService speedService;
 
     public SolarPowerTower(SteamTurbineFactory turbineFactory,
                            Generator generator,
-                           SunIntensity sunIntensity) {
+                           SunIntensity sunIntensity,
+                           SpeedService speedService) {
         this.turbineFactory = turbineFactory;
         this.generator = generator;
+        this.speedService = speedService;
         sunIntensity.registerObserver(this);
     }
 
     public void start() {
-        System.out.println("Sun intensity: " + SunIntensity.getInstance().getIntensity());
+        final SunIntensityLevel sunIntensity = SunIntensity.getInstance().getIntensity();
+        System.out.println("Sun intensity: " + sunIntensity);
         super.start();
+
         SteamTurbine turbine = (SteamTurbine)turbineFactory.createTurbine();
-        turbine.turn();
+        setTurbine(turbine);
+        SpinSpeedLevel turbineSpinSpeedLevel = speedService.calculateTurbineSpinSpeedLevel(sunIntensity);
+        turbine.setSpinSpeed(turbineSpinSpeedLevel);
+
         generator.generateElectricity();
     }
 

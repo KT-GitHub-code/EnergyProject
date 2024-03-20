@@ -1,5 +1,6 @@
 package com.kt.energyproject;
 
+import com.kt.energyproject.common.SpeedService;
 import com.kt.energyproject.environment.SunIntensity;
 import com.kt.energyproject.environment.SunIntensityLevel;
 import com.kt.energyproject.types.generators.Generator;
@@ -25,7 +26,8 @@ public class EnergyProjectApplication {
         SolarPowerTower powerPlant = new SolarPowerTower(
                 context.getBean("steamTurbineFactory", SteamTurbineFactory.class),
                 new Generator(),
-                SunIntensity.getInstance());
+                SunIntensity.getInstance(),
+                context.getBean("speedService", SpeedService.class));
 
         powerPlant.start();
 
@@ -37,6 +39,15 @@ public class EnergyProjectApplication {
         }
 
         SunIntensity.getInstance().setIntensity(SunIntensityLevel.ZERO);
+
+        try {
+            // Runs for 5 seconds
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        System.out.println("Simulation ended");
     }
 
 }
