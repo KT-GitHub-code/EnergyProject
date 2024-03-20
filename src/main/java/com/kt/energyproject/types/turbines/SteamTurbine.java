@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SteamTurbine extends TurbineBase {
 
-    @Override
-    public void turn() {
-        System.out.println("Steam turbine is turning");
-    }
+//    @Override
+//    public void turn() {
+//        System.out.println("Steam turbine is turning");
+//    }
 
 }

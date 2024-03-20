@@ -5,9 +5,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ModernHAWT extends WindTurbine {
 
-    @Override
-    public void turn() {
-        System.out.println("ModernHAWT is turning");
-    }
+//    @Override
+//    public void turn() {
+//        System.out.println("ModernHAWT is turning");
+//    }
 
 }
