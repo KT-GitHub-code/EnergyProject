@@ -35,10 +35,10 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
 
         SpinSpeedLevel turbineSpinSpeedLevel = speedService.calculateTurbineSpinSpeedLevel(sunIntensity);
         turbine.setSpinSpeed(turbineSpinSpeedLevel);
+        turbine.setGenerator(generator);
 
         performContinuousOperationTasks();
 
-        generator.generateElectricity();
     }
 
     @Override
