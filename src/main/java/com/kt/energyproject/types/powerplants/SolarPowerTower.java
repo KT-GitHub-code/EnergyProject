@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSolarPower {
 
     private final SteamTurbineFactory turbineFactory;
+    private final SteamTurbine turbine;
     private final Generator generator;
     private final SpeedService speedService;
 
@@ -21,6 +22,7 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
                            SunIntensity sunIntensity,
                            SpeedService speedService) {
         this.turbineFactory = turbineFactory;
+        this.turbine = (SteamTurbine)this.turbineFactory.createTurbine();
         this.generator = generator;
         this.speedService = speedService;
         sunIntensity.registerObserver(this);
@@ -31,10 +33,10 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
         System.out.println("Sun intensity: " + sunIntensity);
         super.start();
 
-        SteamTurbine turbine = (SteamTurbine)turbineFactory.createTurbine();
-        setTurbine(turbine);
         SpinSpeedLevel turbineSpinSpeedLevel = speedService.calculateTurbineSpinSpeedLevel(sunIntensity);
         turbine.setSpinSpeed(turbineSpinSpeedLevel);
+
+        performContinuousOperationTasks();
 
         generator.generateElectricity();
     }
@@ -45,6 +47,10 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
         if (intensity == SunIntensityLevel.ZERO) {
             stop();
         }
+    }
+
+    protected void performContinuousOperationTasks() {
+        turbine.turn();
     }
 
 }

@@ -1,18 +1,11 @@
 package com.kt.energyproject.common;
 
 
-import java.util.Optional;
 
 public abstract class PowerPlantBase {
 
     private boolean running = false;
     private Thread operationThread;
-    private Optional<TurbineBase> turbine = Optional.empty();
-
-
-    public void setTurbine(TurbineBase turbine) {
-        this.turbine = Optional.of(turbine);
-    }
 
     public boolean isRunning() {
         return running;
@@ -36,9 +29,7 @@ public abstract class PowerPlantBase {
         operationThread = new Thread(() -> {
             while (running) {
                 reportStatus();
-                if(turbine.isPresent()){
-                    turbine.get().turn();
-                }
+                performContinuousOperationTasks();
                 try {
                     // 1 tick per second
                     Thread.sleep(1000);
@@ -53,5 +44,7 @@ public abstract class PowerPlantBase {
     private void reportStatus() {
         System.out.println("Power plant is operating");
     }
+
+    protected abstract void performContinuousOperationTasks();
 
 }

@@ -13,4 +13,8 @@ public class SolarPark extends SolarPowerPlant implements Photovoltaic {
         }
     }
 
+    protected void performContinuousOperationTasks() {
+
+    }
+
 }
