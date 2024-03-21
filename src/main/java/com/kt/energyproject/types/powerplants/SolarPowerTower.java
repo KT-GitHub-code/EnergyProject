@@ -44,9 +44,7 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
     @Override
     public void updateSunIntensity(SunIntensityLevel intensity) {
         System.out.println("Updating sun intensity: " + intensity);
-        if (intensity == SunIntensityLevel.ZERO) {
-            stop();
-        }
+        turbine.setSpinSpeed(speedService.calculateTurbineSpinSpeedLevel(intensity));
     }
 
     protected void performContinuousOperationTasks() {

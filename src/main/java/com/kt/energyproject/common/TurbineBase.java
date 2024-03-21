@@ -27,7 +27,11 @@ public abstract class TurbineBase {
     }
 
     private void turn(SpinSpeedLevel spinSpeed){
-        System.out.println(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
+        if(spinSpeed == SpinSpeedLevel.ZERO){
+            System.out.println(this.getClass().getSimpleName() + " is standing still.");
+        } else {
+            System.out.println(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
+        }
         generator.turn(spinSpeed);
     }
 

@@ -32,13 +32,13 @@ public class EnergyProjectApplication {
         powerPlant.start();
 
         try {
-            // Runs for 10 seconds
-            Thread.sleep(10000);
+            // Runs for 5 seconds
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
-        SunIntensity.getInstance().setIntensity(SunIntensityLevel.ZERO);
+        SunIntensity.getInstance().setIntensity(SunIntensityLevel.LOW);
 
         try {
             // Runs for 5 seconds
@@ -47,6 +47,16 @@ public class EnergyProjectApplication {
             Thread.currentThread().interrupt();
         }
 
+        SunIntensity.getInstance().setIntensity(SunIntensityLevel.ZERO);
+
+        try {
+            // Runs for 2.5 seconds
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        powerPlant.stop();
         System.out.println("Simulation ended");
     }
 

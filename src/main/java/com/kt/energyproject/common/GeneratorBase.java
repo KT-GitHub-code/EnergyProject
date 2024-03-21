@@ -19,8 +19,12 @@ public abstract class GeneratorBase {
 
     public void turn(SpinSpeedLevel spinSpeed){
         setSpinSpeed(spinSpeed);
-        System.out.println(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
-        generateElectricity();
+        if(spinSpeed == SpinSpeedLevel.ZERO){
+            System.out.println(this.getClass().getSimpleName() + " is standing still.");
+        } else {
+            System.out.println(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
+            generateElectricity();
+        }
     }
 
 }
