@@ -1,7 +1,11 @@
 package com.kt.energyproject.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class GeneratorBase {
 
+    private static final Logger logger = LoggerFactory.getLogger(GeneratorBase.class);
     private SpinSpeedLevel spinSpeed;
 
     public SpinSpeedLevel getSpinSpeed() {
@@ -13,16 +17,16 @@ public abstract class GeneratorBase {
     }
 
     public void generateElectricity(){
-        System.out.println("Generating electricity...");
+        logger.info("Generating electricity...");
     }
 
 
     public void turn(SpinSpeedLevel spinSpeed){
         setSpinSpeed(spinSpeed);
         if(spinSpeed == SpinSpeedLevel.ZERO){
-            System.out.println(this.getClass().getSimpleName() + " is standing still.");
+            logger.info(this.getClass().getSimpleName() + " is standing still.");
         } else {
-            System.out.println(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
+            logger.info(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
             generateElectricity();
         }
     }

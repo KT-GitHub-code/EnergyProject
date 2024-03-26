@@ -1,9 +1,12 @@
 package com.kt.energyproject.common;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class PowerPlantBase {
 
+    private static final Logger logger = LoggerFactory.getLogger(PowerPlantBase.class);
     private boolean running = false;
     private Thread operationThread;
 
@@ -12,13 +15,13 @@ public abstract class PowerPlantBase {
     }
 
     public void start(){
-        System.out.println("Starting power plant");
+        logger.info("Starting power plant");
         running = true;
         operateContinuously();
     }
 
     public void stop(){
-        System.out.println("Stopping power plant");
+        logger.info("Stopping power plant");
         running = false;
         if (operationThread != null) {
             operationThread.interrupt();
@@ -42,7 +45,7 @@ public abstract class PowerPlantBase {
     }
 
     private void reportStatus() {
-        System.out.println("Power plant is operating");
+        logger.info("Power plant is operating");
     }
 
     protected abstract void performContinuousOperationTasks();

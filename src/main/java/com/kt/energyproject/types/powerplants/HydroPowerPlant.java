@@ -2,8 +2,12 @@ package com.kt.energyproject.types.powerplants;
 
 import com.kt.energyproject.common.PowerPlantBase;
 import com.kt.energyproject.types.turbines.factory.WaterTurbineFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class HydroPowerPlant extends PowerPlantBase {
+
+    private static final Logger logger = LoggerFactory.getLogger(HydroPowerPlant.class);
 
     private final WaterTurbineFactory turbineFactory;
 
@@ -13,7 +17,7 @@ public abstract class HydroPowerPlant extends PowerPlantBase {
 
     public void start() {
         super.start();
-        System.out.println("Starting HydroPowerPlant");
+        logger.info("Starting HydroPowerPlant");
     }
 
 }

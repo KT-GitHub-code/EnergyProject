@@ -1,7 +1,11 @@
 package com.kt.energyproject.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public abstract class TurbineBase {
 
+    private static final Logger logger = LoggerFactory.getLogger(TurbineBase.class);
     private GeneratorBase generator;
 
     private SpinSpeedLevel spinSpeed;
@@ -28,9 +32,10 @@ public abstract class TurbineBase {
 
     private void turn(SpinSpeedLevel spinSpeed){
         if(spinSpeed == SpinSpeedLevel.ZERO){
-            System.out.println(this.getClass().getSimpleName() + " is standing still.");
+            logger.info(this.getClass().getSimpleName() + " is standing still.");
+
         } else {
-            System.out.println(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
+            logger.info(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
         }
         generator.turn(spinSpeed);
     }

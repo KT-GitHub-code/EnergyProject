@@ -2,8 +2,12 @@ package com.kt.energyproject.types.powerplants;
 
 import com.kt.energyproject.common.PowerPlantBase;
 import com.kt.energyproject.types.turbines.factory.WindTurbineFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class WindPowerPlant extends PowerPlantBase {
+
+    private static final Logger logger = LoggerFactory.getLogger(WindPowerPlant.class);
 
     private final WindTurbineFactory turbineFactory;
 
@@ -13,7 +17,7 @@ public abstract class WindPowerPlant extends PowerPlantBase {
 
     public void start() {
         super.start();
-        System.out.println("Starting WindPowerPlant");
+        logger.info("Starting WindPowerPlant");
     }
 
 }

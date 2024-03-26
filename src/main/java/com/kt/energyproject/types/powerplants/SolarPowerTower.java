@@ -7,11 +7,14 @@ import com.kt.energyproject.environment.SunIntensityLevel;
 import com.kt.energyproject.types.generators.Generator;
 import com.kt.energyproject.types.turbines.SteamTurbine;
 import com.kt.energyproject.types.turbines.factory.SteamTurbineFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSolarPower {
 
+    private static final Logger logger = LoggerFactory.getLogger(SolarPowerTower.class);
     private final SteamTurbineFactory turbineFactory;
     private final SteamTurbine turbine;
     private final Generator generator;
@@ -30,7 +33,7 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
 
     public void start() {
         final SunIntensityLevel sunIntensity = SunIntensity.getInstance().getIntensity();
-        System.out.println("Sun intensity: " + sunIntensity);
+        logger.info("Sun intensity: " + sunIntensity);
         super.start();
 
         SpinSpeedLevel turbineSpinSpeedLevel = speedService.calculateTurbineSpinSpeedLevel(sunIntensity);
@@ -43,7 +46,7 @@ public class SolarPowerTower extends SolarPowerPlant implements ConcentratedSola
 
     @Override
     public void updateSunIntensity(SunIntensityLevel intensity) {
-        System.out.println("Updating sun intensity: " + intensity);
+        logger.info("Updating sun intensity: " + intensity);
         turbine.setSpinSpeed(speedService.calculateTurbineSpinSpeedLevel(intensity));
     }
 
