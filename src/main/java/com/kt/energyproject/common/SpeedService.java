@@ -1,6 +1,7 @@
 package com.kt.energyproject.common;
 
 import com.kt.energyproject.environment.SunIntensityLevel;
+import com.kt.energyproject.environment.WindIntensityLevel;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,18 @@ public class SpeedService {
         } else if (sunIntensityLevel == SunIntensityLevel.LOW) {
             return SpinSpeedLevel.LOW;
         } else if (sunIntensityLevel == SunIntensityLevel.MEDIUM) {
+            return SpinSpeedLevel.MEDIUM;
+        } else {
+            return SpinSpeedLevel.HIGH;
+        }
+    }
+
+    public SpinSpeedLevel calculateTurbineSpinSpeedLevel(WindIntensityLevel windIntensityLevel) {
+        if (windIntensityLevel == WindIntensityLevel.ZERO) {
+            return SpinSpeedLevel.ZERO;
+        } else if (windIntensityLevel == WindIntensityLevel.LOW) {
+            return SpinSpeedLevel.LOW;
+        } else if (windIntensityLevel == WindIntensityLevel.MEDIUM) {
             return SpinSpeedLevel.MEDIUM;
         } else {
             return SpinSpeedLevel.HIGH;
