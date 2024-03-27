@@ -9,12 +9,6 @@ public abstract class WindPowerPlant extends PowerPlantBase implements WindInten
 
     private static final Logger logger = LoggerFactory.getLogger(WindPowerPlant.class);
 
-    private final WindTurbineFactory turbineFactory;
-
-    protected WindPowerPlant(WindTurbineFactory turbineFactory) {
-        this.turbineFactory = turbineFactory;
-    }
-
     public void start() {
         super.start();
         logger.info("Starting WindPowerPlant");
