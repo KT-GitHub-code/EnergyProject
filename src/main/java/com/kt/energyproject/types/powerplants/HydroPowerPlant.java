@@ -1,11 +1,11 @@
 package com.kt.energyproject.types.powerplants;
 
 import com.kt.energyproject.common.PowerPlantBase;
-import com.kt.energyproject.types.turbines.factory.WaterTurbineFactory;
+import com.kt.energyproject.environment.WaterflowIntensityObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class HydroPowerPlant extends PowerPlantBase {
+public abstract class HydroPowerPlant extends PowerPlantBase implements WaterflowIntensityObserver {
 
     private static final Logger logger = LoggerFactory.getLogger(HydroPowerPlant.class);
 
