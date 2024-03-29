@@ -16,7 +16,7 @@ public class StandardWindPowerPlant extends WindPowerPlant {
 
     private static final Logger logger = LoggerFactory.getLogger(StandardWindPowerPlant.class);
 
-    private WindTurbineFactoryProvider windTurbineFactoryProvider;
+    private final WindTurbineFactoryProvider windTurbineFactoryProvider;
     private final TurbineFactory turbineFactory;
     private final WindTurbine turbine;
     private final Generator generator;

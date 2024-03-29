@@ -16,7 +16,7 @@ public class StandardHydroPowerPlant extends HydroPowerPlant{
 
     private static final Logger logger = LoggerFactory.getLogger(StandardHydroPowerPlant.class);
 
-    private WaterTurbineFactoryProvider waterTurbineFactoryProvider;
+    private final WaterTurbineFactoryProvider waterTurbineFactoryProvider;
     private final TurbineFactory turbineFactory;
     private final WaterTurbine turbine;
     private final Generator generator;
