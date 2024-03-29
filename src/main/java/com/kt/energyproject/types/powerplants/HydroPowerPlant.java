@@ -9,12 +9,6 @@ public abstract class HydroPowerPlant extends PowerPlantBase implements Waterflo
 
     private static final Logger logger = LoggerFactory.getLogger(HydroPowerPlant.class);
 
-    private final WaterTurbineFactory turbineFactory;
-
-    protected HydroPowerPlant(WaterTurbineFactory turbineFactory) {
-        this.turbineFactory = turbineFactory;
-    }
-
     public void start() {
         super.start();
         logger.info("Starting HydroPowerPlant");
