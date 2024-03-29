@@ -1,15 +1,15 @@
 package com.kt.energyproject.common.simulation;
 
 import com.kt.energyproject.common.SpeedService;
-import com.kt.energyproject.environment.SunIntensity;
-import com.kt.energyproject.environment.SunIntensityLevel;
-import com.kt.energyproject.environment.WindIntensity;
-import com.kt.energyproject.environment.WindIntensityLevel;
+import com.kt.energyproject.environment.*;
 import com.kt.energyproject.types.generators.Generator;
 import com.kt.energyproject.types.powerplants.SolarPowerTower;
+import com.kt.energyproject.types.powerplants.StandardHydroPowerPlant;
 import com.kt.energyproject.types.powerplants.StandardWindPowerPlant;
+import com.kt.energyproject.types.turbines.WaterTurbineType;
 import com.kt.energyproject.types.turbines.WindTurbineType;
 import com.kt.energyproject.types.turbines.factory.SteamTurbineFactory;
+import com.kt.energyproject.types.turbines.factory.WaterTurbineFactoryProvider;
 import com.kt.energyproject.types.turbines.factory.WindTurbineFactoryProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +22,23 @@ public class SimulationManager {
 
     private static final Logger logger = LoggerFactory.getLogger(SimulationManager.class);
 
-    private final WindTurbineFactoryProvider turbineFactoryProvider;
+    private final WindTurbineFactoryProvider windTurbineFactoryProvider;
+    private final WaterTurbineFactoryProvider waterTurbineFactoryProvider;
     private final SpeedService speedService;
 
     @Autowired
-    public SimulationManager(WindTurbineFactoryProvider turbineFactoryProvider, SpeedService speedService) {
-        this.turbineFactoryProvider = turbineFactoryProvider;
+    public SimulationManager(WindTurbineFactoryProvider windTurbineFactoryProvider,
+                             WaterTurbineFactoryProvider waterTurbineFactoryProvider,
+                             SpeedService speedService) {
+        this.windTurbineFactoryProvider = windTurbineFactoryProvider;
+        this.waterTurbineFactoryProvider = waterTurbineFactoryProvider;
         this.speedService = speedService;
     }
 
     public void startSimulation() {
 //        simulateSolarPowerTower();
 //        simulateStandardWindPowerPlant();
+//        simulateStandardHydroPowerPlant();
     }
 
     private void sleep(int millis) {
@@ -75,7 +80,7 @@ public class SimulationManager {
         logger.warn("Starting Standard Wind Power Plant simulation");
 
         StandardWindPowerPlant powerPlant = new StandardWindPowerPlant(
-                turbineFactoryProvider,
+                windTurbineFactoryProvider,
                 WindTurbineType.MODERN_HAWT,
                 new Generator(),
                 WindIntensity.getInstance(),
@@ -96,4 +101,32 @@ public class SimulationManager {
         powerPlant.stop();
         logger.warn("Standard Wind Power Plant simulation ended");
     }
+
+    private void simulateStandardHydroPowerPlant() {
+
+        logger.warn("Starting Standard Hydro Power Plant simulation");
+
+        StandardHydroPowerPlant powerPlant = new StandardHydroPowerPlant(
+                waterTurbineFactoryProvider,
+                WaterTurbineType.KAPLAN_TURBINE,
+                new Generator(),
+                WaterflowIntensity.getInstance(),
+                speedService);
+
+        powerPlant.start();
+
+        sleep(5000);
+
+        WaterflowIntensity.getInstance().setIntensity(WaterflowIntensityLevel.LOW);
+
+        sleep(5000);
+
+        WaterflowIntensity.getInstance().setIntensity(WaterflowIntensityLevel.ZERO);
+
+        sleep(2500);
+
+        powerPlant.stop();
+        logger.warn("Standard Hydro Power Plant simulation ended");
+    }
+
 }
