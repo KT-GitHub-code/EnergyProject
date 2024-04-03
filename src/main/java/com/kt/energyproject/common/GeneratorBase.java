@@ -3,10 +3,11 @@ package com.kt.energyproject.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class GeneratorBase {
+public abstract class GeneratorBase implements ElectricalComponent {
 
     private static final Logger logger = LoggerFactory.getLogger(GeneratorBase.class);
     private SpinSpeedLevel spinSpeed;
+    private final VoltageLevel voltageLevel = VoltageLevel.GENERATOR;
 
     public SpinSpeedLevel getSpinSpeed() {
         return spinSpeed;
@@ -29,6 +30,10 @@ public abstract class GeneratorBase {
             logger.info(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
             generateElectricity();
         }
+    }
+
+    public VoltageLevel getVoltageLevel() {
+        return voltageLevel;
     }
 
 }
