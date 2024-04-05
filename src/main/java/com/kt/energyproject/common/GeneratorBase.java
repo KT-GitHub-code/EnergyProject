@@ -8,6 +8,7 @@ public abstract class GeneratorBase implements ElectricalComponent {
     private static final Logger logger = LoggerFactory.getLogger(GeneratorBase.class);
     private SpinSpeedLevel spinSpeed;
     private final VoltageLevel voltageLevel = VoltageLevel.GENERATOR;
+    private Transformer transformer;
 
     public SpinSpeedLevel getSpinSpeed() {
         return spinSpeed;
@@ -21,6 +22,13 @@ public abstract class GeneratorBase implements ElectricalComponent {
         logger.info("Generating electricity...");
     }
 
+    public Transformer getTransformer() {
+        return transformer;
+    }
+
+    public void setTransformer(Transformer transformer) {
+        this.transformer = transformer;
+    }
 
     public void turn(SpinSpeedLevel spinSpeed){
         setSpinSpeed(spinSpeed);
