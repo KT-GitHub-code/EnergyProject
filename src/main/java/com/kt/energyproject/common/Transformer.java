@@ -3,7 +3,7 @@ package com.kt.energyproject.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Transformer implements ElectricalComponent {
+public class Transformer implements ElectricalComponent, LoadObserver {
 
     private static final Logger logger = LoggerFactory.getLogger(Transformer.class);
 
@@ -12,11 +12,18 @@ public class Transformer implements ElectricalComponent {
     private final VoltageLevel primaryVoltage;
     private final VoltageLevel secondaryVoltage;
 
-    public Transformer(ElectricalComponent primary, ElectricalComponent secondary) {
+    private ConsumerRegistry consumerRegistry;
+
+    public Transformer(
+            ElectricalComponent primary,
+            ElectricalComponent secondary,
+            ConsumerRegistry consumerRegistry) {
         this.primary = primary;
         this.secondary = secondary;
         this.primaryVoltage = primary.getVoltageLevel();
         this.secondaryVoltage = secondary.getVoltageLevel();
+        this.consumerRegistry = consumerRegistry;
+        this.consumerRegistry.addObserver(this);
     }
 
     public ElectricalComponent getPrimary() {
@@ -38,6 +45,16 @@ public class Transformer implements ElectricalComponent {
     @Override
     public VoltageLevel getVoltageLevel() {
         return getPrimaryVoltage();
+    }
+
+    @Override
+    public void onConsumerAdded(ElectricConsumer consumer) {
+        consumerRegistry.addConsumer(consumer);
+    }
+
+    @Override
+    public void onConsumerRemoved(ElectricConsumer consumer) {
+        consumerRegistry.removeConsumer(consumer);
     }
 
 }
