@@ -49,12 +49,12 @@ public class Transformer implements ElectricalComponent, LoadObserver {
 
     @Override
     public void onConsumerAdded(ElectricConsumer consumer) {
-        consumerRegistry.addConsumer(consumer);
+        logger.info("Load increased by adding: " + consumer);
     }
 
     @Override
     public void onConsumerRemoved(ElectricConsumer consumer) {
-        consumerRegistry.removeConsumer(consumer);
+        logger.info("Load decreased by removing: " + consumer);
     }
 
 }
