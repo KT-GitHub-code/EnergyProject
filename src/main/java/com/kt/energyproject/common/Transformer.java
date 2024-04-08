@@ -14,6 +14,8 @@ public class Transformer implements ElectricalComponent, LoadObserver {
 
     private ConsumerRegistry consumerRegistry;
 
+    private boolean powerAvailable = false;
+
     public Transformer(
             ElectricalComponent primary,
             ElectricalComponent secondary,
@@ -42,6 +44,16 @@ public class Transformer implements ElectricalComponent, LoadObserver {
         return secondaryVoltage;
     }
 
+    public boolean isPowerAvailable() {
+        return powerAvailable;
+    }
+
+    public void setPowerAvailable(boolean powerAvailable) {
+        this.powerAvailable = powerAvailable;
+        System.out.println("Transformer - onPowerAvailabilityChange :"+powerAvailable);
+        notifyConsumersAboutPowerChange();
+    }
+
     @Override
     public VoltageLevel getVoltageLevel() {
         return getPrimaryVoltage();
@@ -57,4 +69,10 @@ public class Transformer implements ElectricalComponent, LoadObserver {
         logger.info("Load decreased by removing: " + consumer);
     }
 
+    private void notifyConsumersAboutPowerChange() {
+        System.out.println(consumerRegistry.getConsumers());
+        for (ElectricConsumer consumer : consumerRegistry.getConsumers()) {
+            consumer.onPowerAvailabilityChange(powerAvailable);
+        }
+    }
 }
