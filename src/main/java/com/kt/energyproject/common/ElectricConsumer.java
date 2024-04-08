@@ -30,8 +30,20 @@ public class ElectricConsumer implements ElectricalComponent, PowerObserver {
         return voltageLevel;
     }
 
-    public void consumeElectricity() {
+    private void consumeElectricity() {
         logger.info("Consuming electricity...");
+    }
+
+    public void start(){
+        logger.info("Starting consumer: " + this);
+        tryToConsumeElectricity();
+    }
+
+    public void stop(){
+        logger.info("Stopping consumer: " + this);
+        if (operationThread != null) {
+            operationThread.interrupt();
+        }
     }
 
     @Override
@@ -39,4 +51,20 @@ public class ElectricConsumer implements ElectricalComponent, PowerObserver {
         logger.info("Power Availability Changed: "+powerAvailable);
         this.powerAvailable = powerAvailable;
     }
+
+    public void tryToConsumeElectricity() {
+        operationThread = new Thread(() -> {
+            while (powerAvailable) {
+                consumeElectricity();
+                try {
+                    // 1 tick per second
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        operationThread.start();
+    }
+
 }
