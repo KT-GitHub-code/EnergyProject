@@ -34,9 +34,15 @@ public abstract class GeneratorBase implements ElectricalComponent {
         setSpinSpeed(spinSpeed);
         if(spinSpeed == SpinSpeedLevel.ZERO){
             logger.info(this.getClass().getSimpleName() + " is standing still.");
+            if(transformer.isPowerAvailable()){
+                transformer.setPowerAvailable(false);
+            }
         } else {
             logger.info(this.getClass().getSimpleName() + " is turning at speed: " + spinSpeed);
             generateElectricity();
+            if(!transformer.isPowerAvailable()){
+                transformer.setPowerAvailable(true);
+            }
         }
     }
 
