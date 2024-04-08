@@ -58,7 +58,6 @@ public class Transformer implements ElectricalComponent, LoadObserver {
 
     public void setPowerAvailable(boolean powerAvailable) {
         this.powerAvailable = powerAvailable;
-        System.out.println("Transformer - onPowerAvailabilityChange :"+powerAvailable);
         notifyConsumersAboutPowerChange();
     }
 
@@ -78,7 +77,6 @@ public class Transformer implements ElectricalComponent, LoadObserver {
     }
 
     private void notifyConsumersAboutPowerChange() {
-        System.out.println(consumerRegistry.getConsumers());
         for (ElectricConsumer consumer : consumerRegistry.getConsumers()) {
             consumer.onPowerAvailabilityChange(powerAvailable);
         }
