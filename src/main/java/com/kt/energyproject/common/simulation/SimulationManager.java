@@ -1,6 +1,6 @@
 package com.kt.energyproject.common.simulation;
 
-import com.kt.energyproject.common.SpeedService;
+import com.kt.energyproject.common.*;
 import com.kt.energyproject.environment.*;
 import com.kt.energyproject.types.generators.Generator;
 import com.kt.energyproject.types.powerplants.SolarPowerTower;
@@ -53,13 +53,27 @@ public class SimulationManager {
 
         logger.warn("Starting Solar Power Tower simulation");
 
+        Generator generator = new Generator();
+
         SolarPowerTower powerPlant = new SolarPowerTower(
                 new SteamTurbineFactory(),
-                new Generator(),
+                generator,
                 SunIntensity.getInstance(),
                 speedService);
 
+        Transformer transformer = new Transformer(
+                generator,
+                new ElectricalLine(VoltageLevel.HOUSEHOLD),
+                new ConsumerRegistry());
+
+        generator.setTransformer(transformer);
+
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD);
+
+        transformer.getConsumerRegistry().addConsumer(consumer);
+
         powerPlant.start();
+        consumer.start();
 
         sleep(5000);
 
@@ -79,14 +93,28 @@ public class SimulationManager {
 
         logger.warn("Starting Standard Wind Power Plant simulation");
 
+        Generator generator = new Generator();
+
         StandardWindPowerPlant powerPlant = new StandardWindPowerPlant(
                 windTurbineFactoryProvider,
                 WindTurbineType.MODERN_HAWT,
-                new Generator(),
+                generator,
                 WindIntensity.getInstance(),
                 speedService);
 
+        Transformer transformer = new Transformer(
+                generator,
+                new ElectricalLine(VoltageLevel.HOUSEHOLD),
+                new ConsumerRegistry());
+
+        generator.setTransformer(transformer);
+
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD);
+
+        transformer.getConsumerRegistry().addConsumer(consumer);
+
         powerPlant.start();
+        consumer.start();
 
         sleep(5000);
 
@@ -106,6 +134,8 @@ public class SimulationManager {
 
         logger.warn("Starting Standard Hydro Power Plant simulation");
 
+        Generator generator = new Generator();
+
         StandardHydroPowerPlant powerPlant = new StandardHydroPowerPlant(
                 waterTurbineFactoryProvider,
                 WaterTurbineType.KAPLAN_TURBINE,
@@ -113,7 +143,19 @@ public class SimulationManager {
                 WaterflowIntensity.getInstance(),
                 speedService);
 
+        Transformer transformer = new Transformer(
+                generator,
+                new ElectricalLine(VoltageLevel.HOUSEHOLD),
+                new ConsumerRegistry());
+
+        generator.setTransformer(transformer);
+
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD);
+
+        transformer.getConsumerRegistry().addConsumer(consumer);
+
         powerPlant.start();
+        consumer.start();
 
         sleep(5000);
 

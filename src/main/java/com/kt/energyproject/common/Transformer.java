@@ -44,6 +44,14 @@ public class Transformer implements ElectricalComponent, LoadObserver {
         return secondaryVoltage;
     }
 
+    public ConsumerRegistry getConsumerRegistry() {
+        return consumerRegistry;
+    }
+
+    public void setConsumerRegistry(ConsumerRegistry consumerRegistry) {
+        this.consumerRegistry = consumerRegistry;
+    }
+
     public boolean isPowerAvailable() {
         return powerAvailable;
     }
