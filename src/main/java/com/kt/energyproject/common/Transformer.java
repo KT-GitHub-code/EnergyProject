@@ -14,18 +14,23 @@ public class Transformer implements ElectricalComponent, LoadObserver {
 
     private ConsumerRegistry consumerRegistry;
 
+    private final WattageService wattageService;
+
+    private int totalCapacity = 100;
+    private int currentLoad = 0;
+
     private boolean powerAvailable = false;
 
     public Transformer(
             ElectricalComponent primary,
-            ElectricalComponent secondary,
-            ConsumerRegistry consumerRegistry) {
+            ElectricalComponent secondary) {
         this.primary = primary;
         this.secondary = secondary;
         this.primaryVoltage = primary.getVoltageLevel();
         this.secondaryVoltage = secondary.getVoltageLevel();
-        this.consumerRegistry = consumerRegistry;
+        this.consumerRegistry = new ConsumerRegistry();
         this.consumerRegistry.addObserver(this);
+        this.wattageService = new WattageService();
     }
 
     public ElectricalComponent getPrimary() {
@@ -61,6 +66,14 @@ public class Transformer implements ElectricalComponent, LoadObserver {
         notifyConsumersAboutPowerChange();
     }
 
+    public int getTotalCapacity() {
+        return totalCapacity;
+    }
+
+    public int getCurrentLoad() {
+        return currentLoad;
+    }
+
     @Override
     public VoltageLevel getVoltageLevel() {
         return getPrimaryVoltage();
@@ -69,11 +82,13 @@ public class Transformer implements ElectricalComponent, LoadObserver {
     @Override
     public void onConsumerAdded(ElectricConsumer consumer) {
         logger.info("Load increased by adding: " + consumer);
+        currentLoad = wattageService.calculateLoadPercentageAfterAddingConsumer(consumer.getWattageLevel(), this);
     }
 
     @Override
     public void onConsumerRemoved(ElectricConsumer consumer) {
         logger.info("Load decreased by removing: " + consumer);
+        currentLoad = wattageService.calculateLoadPercentageAfterRemovingConsumer(consumer.getWattageLevel(), this);
     }
 
     private void notifyConsumersAboutPowerChange() {

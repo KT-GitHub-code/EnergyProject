@@ -63,8 +63,7 @@ public class SimulationManager {
 
         Transformer transformer = new Transformer(
                 generator,
-                new ElectricalLine(VoltageLevel.HOUSEHOLD),
-                new ConsumerRegistry());
+                new ElectricalLine(VoltageLevel.HOUSEHOLD));
 
         generator.setTransformer(transformer);
 
@@ -104,8 +103,7 @@ public class SimulationManager {
 
         Transformer transformer = new Transformer(
                 generator,
-                new ElectricalLine(VoltageLevel.HOUSEHOLD),
-                new ConsumerRegistry());
+                new ElectricalLine(VoltageLevel.HOUSEHOLD));
 
         generator.setTransformer(transformer);
 
@@ -145,8 +143,7 @@ public class SimulationManager {
 
         Transformer transformer = new Transformer(
                 generator,
-                new ElectricalLine(VoltageLevel.HOUSEHOLD),
-                new ConsumerRegistry());
+                new ElectricalLine(VoltageLevel.HOUSEHOLD));
 
         generator.setTransformer(transformer);
 
