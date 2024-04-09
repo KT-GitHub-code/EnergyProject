@@ -13,8 +13,11 @@ public class ElectricConsumer implements ElectricalComponent, PowerObserver {
 
     private Thread operationThread;
 
-    public ElectricConsumer(VoltageLevel voltageLevel) {
+    private final WattageLevel wattageLevel;
+
+    public ElectricConsumer(VoltageLevel voltageLevel, WattageLevel wattageLevel) {
         this.voltageLevel = voltageLevel;
+        this.wattageLevel = wattageLevel;
     }
 
     public boolean isPowerAvailable() {
@@ -23,6 +26,10 @@ public class ElectricConsumer implements ElectricalComponent, PowerObserver {
 
     public void setPowerAvailable(boolean powerAvailable) {
         this.powerAvailable = powerAvailable;
+    }
+
+    public WattageLevel getWattageLevel() {
+        return wattageLevel;
     }
 
     @Override

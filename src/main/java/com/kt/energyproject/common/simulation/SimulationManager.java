@@ -68,7 +68,7 @@ public class SimulationManager {
 
         generator.setTransformer(transformer);
 
-        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD);
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD, WattageLevel.LOW);
 
         transformer.getConsumerRegistry().addConsumer(consumer);
 
@@ -109,7 +109,7 @@ public class SimulationManager {
 
         generator.setTransformer(transformer);
 
-        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD);
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD, WattageLevel.LOW);
 
         transformer.getConsumerRegistry().addConsumer(consumer);
 
@@ -150,7 +150,7 @@ public class SimulationManager {
 
         generator.setTransformer(transformer);
 
-        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD);
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD, WattageLevel.LOW);
 
         transformer.getConsumerRegistry().addConsumer(consumer);
 
