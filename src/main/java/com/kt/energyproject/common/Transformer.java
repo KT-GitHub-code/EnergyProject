@@ -16,7 +16,7 @@ public class Transformer implements ElectricalComponent, LoadObserver {
 
     private final WattageService wattageService;
 
-    private int totalCapacity = 100;
+    private final int totalCapacity = 100;
     private int currentLoad = 0;
 
     private boolean powerAvailable = false;
@@ -83,12 +83,14 @@ public class Transformer implements ElectricalComponent, LoadObserver {
     public void onConsumerAdded(ElectricConsumer consumer) {
         logger.info("Load increased by adding: " + consumer);
         currentLoad = wattageService.calculateLoadPercentageAfterAddingConsumer(consumer.getWattageLevel(), this);
+        checkOverloadStatus();
     }
 
     @Override
     public void onConsumerRemoved(ElectricConsumer consumer) {
         logger.info("Load decreased by removing: " + consumer);
         currentLoad = wattageService.calculateLoadPercentageAfterRemovingConsumer(consumer.getWattageLevel(), this);
+        checkOverloadStatus();
     }
 
     private void notifyConsumersAboutPowerChange() {
@@ -96,4 +98,20 @@ public class Transformer implements ElectricalComponent, LoadObserver {
             consumer.onPowerAvailabilityChange(powerAvailable);
         }
     }
+
+    private void checkOverloadStatus() {
+        if (currentLoad > totalCapacity) {
+            logger.warn("Overload! Current load: " + currentLoad + " %.");
+            if (currentLoad >= 120) {
+               emergencyShutdown();
+            }
+        }
+    }
+
+    private void emergencyShutdown() {
+        logger.warn("Emergency Shutdown initiated!");
+        powerAvailable = false;
+        notifyConsumersAboutPowerChange();
+    }
+
 }
