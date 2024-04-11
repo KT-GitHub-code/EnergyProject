@@ -24,10 +24,6 @@ public class ElectricConsumer implements ElectricalComponent, PowerObserver {
         return powerAvailable;
     }
 
-    public void setPowerAvailable(boolean powerAvailable) {
-        this.powerAvailable = powerAvailable;
-    }
-
     public WattageLevel getWattageLevel() {
         return wattageLevel;
     }
