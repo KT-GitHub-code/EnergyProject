@@ -2,6 +2,7 @@ package com.kt.energyproject.common;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,6 +67,13 @@ public class ConsumerRegistry {
         return consumers.stream()
                 .filter(consumer -> consumer.getVoltageLevel().equals(voltageLevel))
                 .collect(Collectors.toList());
+    }
+
+    public ElectricConsumer getConsumerWithHighestWattage() {
+        return consumers.stream()
+                .max(Comparator.comparing(ElectricConsumer::getWattageLevel,
+                        Comparator.comparing(WattageLevel::ordinal)))
+                .orElse(null);
     }
 
 }
