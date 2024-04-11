@@ -38,7 +38,7 @@ public class ElectricConsumer implements ElectricalComponent, PowerObserver {
     }
 
     private void consumeElectricity() {
-        logger.info("Consuming electricity...");
+        logger.info("Consuming a " + wattageLevel + " amount of electricity...");
     }
 
     public void start(){
