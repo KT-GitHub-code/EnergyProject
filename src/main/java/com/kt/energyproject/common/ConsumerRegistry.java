@@ -3,7 +3,9 @@ package com.kt.energyproject.common;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ConsumerRegistry {
@@ -52,6 +54,18 @@ public class ConsumerRegistry {
         for (LoadObserver observer : observers) {
             observer.onConsumerRemoved(consumer);
         }
+    }
+
+    public List<ElectricConsumer> getConsumersByWattageLevel(WattageLevel wattageLevel) {
+        return consumers.stream()
+                .filter(consumer -> consumer.getWattageLevel().equals(wattageLevel))
+                .collect(Collectors.toList());
+    }
+
+    public List<ElectricConsumer> getConsumersByVoltageLevel(VoltageLevel voltageLevel) {
+        return consumers.stream()
+                .filter(consumer -> consumer.getVoltageLevel().equals(voltageLevel))
+                .collect(Collectors.toList());
     }
 
 }
