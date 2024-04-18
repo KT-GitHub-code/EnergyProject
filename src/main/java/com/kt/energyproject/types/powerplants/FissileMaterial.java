@@ -1,7 +1,9 @@
 package com.kt.energyproject.types.powerplants;
 
+import java.util.Set;
+
 public interface FissileMaterial {
 
-    void undergoFission();
+    Set<FissionProduct> undergoFission(Neutron neutron);
 
 }
