@@ -8,8 +8,7 @@ public class Uranium235 extends Atom implements FissileMaterial {
         super(92, 235);
     }
 
-    @Override
-    public Set<FissionProduct> undergoFission(Neutron neutron) {
+    private Set<FissionProduct> undergoFission(Neutron neutron) {
         // TODO: implement uranium-235 fission
         return Set.of();
     }
