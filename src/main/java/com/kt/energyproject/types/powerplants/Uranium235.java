@@ -14,4 +14,8 @@ public class Uranium235 extends Atom implements FissileMaterial {
     }
 
 
+    @Override
+    public Set<FissionProduct> absorbNeutron(Neutron neutron) {
+        return undergoFission(neutron);
+    }
 }

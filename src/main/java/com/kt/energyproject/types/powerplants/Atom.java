@@ -34,4 +34,7 @@ public abstract class Atom {
         this.protons = protons;
         this.electrons = electrons;
     }
+
+    public abstract Set<FissionProduct> absorbNeutron(Neutron neutron);
+
 }

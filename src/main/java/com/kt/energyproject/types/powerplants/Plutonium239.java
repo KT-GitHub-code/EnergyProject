@@ -12,4 +12,9 @@ public class Plutonium239 extends Atom implements FissileMaterial {
         // TODO: implement plutonium-239 fission
         return Set.of();
     }
+
+    @Override
+    public Set<FissionProduct> absorbNeutron(Neutron neutron) {
+        return undergoFission(neutron);
+    }
 }
