@@ -3,7 +3,7 @@ package com.kt.energyproject.types.powerplants;
 public class ControlRods {
 
     private final ControlRodMaterial material;
-    private int position;
+    private int position; // 0: fully withdrawn, 100: fully inserted
 
     public ControlRods(ControlRodMaterial material) {
         this.material = material;
@@ -19,6 +19,9 @@ public class ControlRods {
     }
 
     public void setPosition(int position) {
+        if (position<0 || position>100) {
+            throw new IllegalArgumentException("Position must be between 0 and 100");
+        }
         this.position = position;
     }
 }
