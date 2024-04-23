@@ -77,7 +77,7 @@ public class PWRFuel extends NuclearFuel {
         int positionPercentage = controlRods.getPosition();
 
         Random random = new Random();
-        int randomNumber = random.nextInt(100);
+        int randomNumber = random.nextInt(101);
 
         return randomNumber < positionPercentage;
     }
@@ -87,7 +87,7 @@ public class PWRFuel extends NuclearFuel {
         int chanceOfNeutronAbsorptionByModerator = moderator.getChanceOfNeutronAbsorption();
 
         Random random = new Random();
-        int randomNumber = random.nextInt(100);
+        int randomNumber = random.nextInt(101);
 
         return randomNumber < chanceOfNeutronAbsorptionByModerator;
     }
