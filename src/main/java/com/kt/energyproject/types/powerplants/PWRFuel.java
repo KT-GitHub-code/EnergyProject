@@ -61,6 +61,7 @@ public class PWRFuel extends NuclearFuel {
         Iterator<Neutron> iterator = neutrons.iterator();
         while(iterator.hasNext()) {
             Neutron n = iterator.next();
+            reactorCore.getModerator().moderateNeutronSpeed(n);
             shootNeutron(n);
             iterator.remove();
         }

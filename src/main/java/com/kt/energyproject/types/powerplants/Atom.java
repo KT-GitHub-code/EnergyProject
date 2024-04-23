@@ -22,7 +22,7 @@ public abstract class Atom {
         Set<Electron> electrons = new HashSet<>();
 
         for(int i=1; i<massNumber; i++) {
-            neutrons.add(new Neutron());
+            neutrons.add(new Neutron(NeutronSpeed.SLOW));
         }
 
         for(int i=1; i<=atomicNumber; i++) {

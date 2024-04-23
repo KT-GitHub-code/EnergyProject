@@ -13,4 +13,8 @@ public class Moderator {
     public int getChanceOfNeutronAbsorption() {
         return chanceOfNeutronAbsorption;
     }
+
+    public void moderateNeutronSpeed(Neutron n) {
+        n.setSpeed(NeutronSpeed.SLOW);
+    }
 }
