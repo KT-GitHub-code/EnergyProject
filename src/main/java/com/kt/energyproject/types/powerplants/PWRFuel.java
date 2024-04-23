@@ -32,6 +32,10 @@ public class PWRFuel extends NuclearFuel {
             return;
         }
 
+        if(neutronGetsAbsorbedByModerator(neutron)) {
+            return;
+        }
+
         Atom atom = getRandomAtom();
 
         Set<FissionProduct> fissionProducts = atom.absorbNeutron(neutron);
@@ -76,6 +80,16 @@ public class PWRFuel extends NuclearFuel {
         int randomNumber = random.nextInt(100);
 
         return randomNumber < positionPercentage;
+    }
+
+    private boolean neutronGetsAbsorbedByModerator(Neutron neutron) {
+        Moderator moderator = reactorCore.getModerator();
+        int chanceOfNeutronAbsorptionByModerator = moderator.getChanceOfNeutronAbsorption();
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(100);
+
+        return randomNumber < chanceOfNeutronAbsorptionByModerator;
     }
 
 }
