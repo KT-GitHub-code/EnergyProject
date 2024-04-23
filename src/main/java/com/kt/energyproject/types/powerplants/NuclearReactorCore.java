@@ -8,4 +8,7 @@ public abstract class NuclearReactorCore {
 
     protected abstract void performContinuousOperationTasks();
 
+    public abstract void temperatureRising();
+
+    public abstract void temperatureFalling();
 }

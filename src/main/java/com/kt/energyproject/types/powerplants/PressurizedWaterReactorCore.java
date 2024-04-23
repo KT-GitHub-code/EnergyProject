@@ -16,6 +16,7 @@ public class PressurizedWaterReactorCore extends NuclearReactorCore {
         this.controlRods = new ControlRods(ControlRodMaterial.BORON);
         this.moderator = new Moderator(ModeratorMaterial.WATER);
         this.coolant = new Coolant(CoolantMaterial.WATER);
+        this.coolant.setNuclearReactorCore(this);
     }
 
     public PWRFuel getFuel() {
@@ -55,5 +56,15 @@ public class PressurizedWaterReactorCore extends NuclearReactorCore {
     @Override
     protected void performContinuousOperationTasks() {
 
+    }
+
+    @Override
+    public void temperatureRising() {
+        logger.info("Temperature rising");
+    }
+
+    @Override
+    public void temperatureFalling() {
+        logger.info("Temperature falling");
     }
 }

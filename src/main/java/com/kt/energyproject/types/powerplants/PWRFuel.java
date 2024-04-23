@@ -52,6 +52,7 @@ public class PWRFuel extends NuclearFuel {
         }
 
         if(fissionFragments.size() == 2) {
+            reactorCore.temperatureRising();
             atoms.remove(atom);
             for (FissionFragment fissionFragment : fissionFragments) {
                 atoms.add( (Atom) fissionFragment);
