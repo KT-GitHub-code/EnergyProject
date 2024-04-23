@@ -51,14 +51,18 @@ public class PWRFuel extends NuclearFuel {
             }
         }
 
-        atoms.remove(atom);
-        for (FissionFragment fissionFragment : fissionFragments) {
-            atoms.add( (Atom) fissionFragment);
+        if(fissionFragments.size() == 2) {
+            atoms.remove(atom);
+            for (FissionFragment fissionFragment : fissionFragments) {
+                atoms.add( (Atom) fissionFragment);
+            }
         }
 
-        while(!neutrons.isEmpty()) {
-            Neutron n = neutrons.iterator().next();
+        Iterator<Neutron> iterator = neutrons.iterator();
+        while(iterator.hasNext()) {
+            Neutron n = iterator.next();
             shootNeutron(n);
+            iterator.remove();
         }
 
     }
