@@ -6,7 +6,7 @@ import java.util.Set;
 public abstract class Atom {
 
     private final int atomicNumber;
-    private final int massNumber;
+    private int massNumber;
 
     private final Set<Neutron> neutrons;
     private final Set<Proton> protons;
@@ -35,6 +35,10 @@ public abstract class Atom {
         this.electrons = electrons;
     }
 
-    public abstract Set<FissionProduct> absorbNeutron(Neutron neutron);
+    public Set<FissionProduct> absorbNeutron(Neutron neutron){
+        neutrons.add(neutron);
+        massNumber++;
+        return Set.of();
+    }
 
 }
