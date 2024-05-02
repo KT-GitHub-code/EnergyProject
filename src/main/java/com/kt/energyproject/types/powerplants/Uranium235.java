@@ -4,13 +4,14 @@ import java.util.Set;
 
 public class Uranium235 extends Atom implements FissileMaterial {
 
+    private final FissionService fissionService = FissionService.getInstance();
+
     public Uranium235() {
         super(92, 235);
     }
 
     private Set<FissionProduct> undergoFission(Neutron neutron) {
-        // TODO: implement uranium-235 fission
-        return Set.of();
+        return fissionService.calculateFissionProducts(this, neutron);
     }
 
 
