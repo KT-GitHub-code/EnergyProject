@@ -3,9 +3,7 @@ package com.kt.energyproject.common.simulation;
 import com.kt.energyproject.common.*;
 import com.kt.energyproject.environment.*;
 import com.kt.energyproject.types.generators.Generator;
-import com.kt.energyproject.types.powerplants.SolarPowerTower;
-import com.kt.energyproject.types.powerplants.StandardHydroPowerPlant;
-import com.kt.energyproject.types.powerplants.StandardWindPowerPlant;
+import com.kt.energyproject.types.powerplants.*;
 import com.kt.energyproject.types.turbines.WaterTurbineType;
 import com.kt.energyproject.types.turbines.WindTurbineType;
 import com.kt.energyproject.types.turbines.factory.SteamTurbineFactory;
@@ -39,6 +37,7 @@ public class SimulationManager {
 //        simulateSolarPowerTower();
 //        simulateStandardWindPowerPlant();
 //        simulateStandardHydroPowerPlant();
+        simulatePressurizedWaterReactorNuclearPowerPlant();
     }
 
     private void sleep(int millis) {
@@ -168,4 +167,32 @@ public class SimulationManager {
         logger.warn("Standard Hydro Power Plant simulation ended");
     }
 
+    private void simulatePressurizedWaterReactorNuclearPowerPlant() {
+        logger.warn("Starting Pressurized Water Reactor Nuclear Power Plant simulation");
+
+        Generator generator = new Generator();
+
+        PressurizedWaterReactorNuclearPowerPlant powerPlant = new PressurizedWaterReactorNuclearPowerPlant(
+                new SteamTurbineFactory(),
+                generator,
+                new HeatExchanger());
+
+        Transformer transformer = new Transformer(
+                generator,
+                new ElectricalLine(VoltageLevel.HOUSEHOLD));
+
+        generator.setTransformer(transformer);
+
+        ElectricConsumer consumer = new ElectricConsumer(VoltageLevel.HOUSEHOLD, WattageLevel.LOW);
+
+        transformer.getConsumerRegistry().addConsumer(consumer);
+
+        powerPlant.start();
+        consumer.start();
+
+        sleep(5000);
+
+        powerPlant.stop();
+        logger.warn("PWR Nuclear Power Plant simulation ended");
+    }
 }
