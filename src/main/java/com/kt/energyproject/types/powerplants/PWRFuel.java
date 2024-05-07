@@ -1,8 +1,13 @@
 package com.kt.energyproject.types.powerplants;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.*;
 
 public class PWRFuel extends NuclearFuel {
+
+    private static final Logger logger = LoggerFactory.getLogger(PWRFuel.class);
 
     private final Set<Atom> atoms;
 
@@ -27,16 +32,19 @@ public class PWRFuel extends NuclearFuel {
     }
 
     public void shootNeutron(Neutron neutron) {
-
+        logger.info("Shooting neutron");
         if(neutronGetsAbsorbedByControlRods(neutron)) {
+            logger.info("Neutron gets absorbed by control rods");
             return;
         }
 
         if(neutronGetsAbsorbedByModerator(neutron)) {
+            logger.info("Neutron gets absorbed by moderator");
             return;
         }
 
         Atom atom = getRandomAtom();
+        logger.info("random atom: {}", atom);
 
         Set<FissionProduct> fissionProducts = atom.absorbNeutron(neutron);
 
