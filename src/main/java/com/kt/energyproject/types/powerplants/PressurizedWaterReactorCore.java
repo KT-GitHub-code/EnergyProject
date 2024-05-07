@@ -38,6 +38,7 @@ public class PressurizedWaterReactorCore extends NuclearReactorCore {
     public void insertFuelIntoReactor(PWRFuel fuel) {
         this.fuel = fuel;
         this.fuel.setNuclearReactorCore(this);
+        logger.info("fuel inserted ({})", fuel);
     }
 
     @Override
@@ -46,6 +47,7 @@ public class PressurizedWaterReactorCore extends NuclearReactorCore {
             throw new IllegalStateException("No fuel in the reactor");
         }
         logger.info("Starting Reactor");
+        fuel.shootNeutron(new Neutron(NeutronSpeed.SLOW));
     }
 
     @Override

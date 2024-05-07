@@ -29,10 +29,15 @@ public class PressurizedWaterReactorNuclearPowerPlant extends NuclearPowerPlant 
         turbine.setGenerator(generator);
         this.heatExchanger = heatExchanger;
         heatExchanger.setTurbine(turbine);
+        reactorCore.getCoolant().setHeatExchanger(heatExchanger);
+        PWRFuel fuel = new PWRFuel();
+        reactorCore.insertFuelIntoReactor(fuel);
     }
 
     public void start() {
         super.start();
+        reactorCore.getControlRods().setPosition(0);
+        reactorCore.start();
     }
 
     @Override
